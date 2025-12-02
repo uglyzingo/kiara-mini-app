@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>kiara – Always online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div id="app" class="app">
+    <div class="hero">
+      <img src="kiara.jpg" alt="kiara" class="hero-img" />
+    </div>
+
+    <div class="card">
+      <div class="avatar-wrapper">
+        <img src="kiara.jpg" alt="kiara avatar" class="avatar" />
+      </div>
+
+      <div class="header-text">
+        <div class="name-row">
+          <span class="name">kiara</span>
+          <span class="verified">✓</span>
+          <span class="tag">AI Companion</span>
+        </div>
+
+        <div class="status-row">
+          <span class="status-dot"></span>
+          <span class="status-text">ONLINE</span>
+        </div>
+
+        <div class="location">@kiara_companion · Beach vibes</div>
+      </div>
+
+      <div class="bio">
+        Always online.
+      </div>
+
+      <div class="primary-actions">
+        <button class="btn follow-btn" id="followBtn">Follow</button>
+        <button class="btn chat-btn" id="chatBtn">
+          Chat <span class="tg-icon">✈️</span>
+        </button>
+      </div>
+
+      <div class="quick-row">
+        <button class="quick-btn" data-action="gallery">📸<span>Gallery</span></button>
+        <button class="quick-btn" data-action="flirt">😈<span>Flirt</span></button>
+        <button class="quick-btn" data-action="love">💗<span>Send Love</span></button>
+        <button class="quick-btn" data-action="upgrade">💎<span>Upgrade</span></button>
+        <button class="quick-btn" data-action="gifts">🎁<span>Gifts</span></button>
+      </div>
+
+      <div class="footer">
+        <span class="handle">@kiara_companion_bot</span>
+        <span class="tiny">· powered by your LLM backend</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
