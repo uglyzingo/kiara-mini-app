@@ -1,48 +1,58 @@
-// Telegram WebApp integration
-const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+// Initialize Telegram WebApp
+let tg = null;
 
-if (tg) {
-  tg.expand(); // expands to full height
-  tg.ready();  // lets Telegram know the app is ready
-}
-
-// Function to send an action back to your bot
-function sendAction(action) {
-  if (!tg) {
-    console.log("Action:", action);
-    alert("Telegram WebApp works only inside Telegram. Action: " + action);
-    return;
-  }
-
-  tg.sendData(JSON.stringify({
-    type: "kiara_action",
-    action: action
-  }));
-}
-
-// MAIN UI EVENT HANDLERS
 document.addEventListener("DOMContentLoaded", () => {
+    if (window.Telegram && window.Telegram.WebApp) {
+        tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+    } else {
+        console.error("Telegram WebApp not detected");
+    }
 
-  // Follow button
-  const followBtn = document.getElementById("followBtn");
-  followBtn.addEventListener("click", () => {
-    sendAction("follow");
-  });
+    // CHAT BUTTON (works already)
+    const chatBtn = document.getElementById("chatBtn");
+    if (chatBtn) {
+        chatBtn.addEventListener("click", () => {
+            sendAction("chat");
+            if (tg) tg.close();
+        });
+    }
 
-  // Chat button
-  const chatBtn = document.getElementById("chatBtn");
-  chatBtn.addEventListener("click", () => {
-    sendAction("chat");
-    if (tg) tg.close(); // return to Telegram chat
-  });
+    // FOLLOW BUTTON
+    const followBtn = document.getElementById("followBtn");
+    if (followBtn) {
+        followBtn.addEventListener("click", () => {
+            sendAction("follow");
+        });
+    }
 
-  // Quick buttons
-  const quickButtons = document.querySelectorAll(".quick-btn");
-  quickButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const action = btn.dataset.action;
-      sendAction(action);
+    // QUICK ACTION BUTTONS
+    const quickButtons = document.querySelectorAll(".quick-btn");
+    quickButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const action = btn.dataset.action;
+            console.log("BUTTON CLICKED:", action); // debug
+            sendAction(action);
+        });
     });
-  });
-
 });
+
+
+// FUNCTION: SEND ACTION TO TELEGRAM BOT
+function sendAction(action) {
+    if (!tg) {
+        console.error("Telegram WebApp not initialized.");
+        alert("Error: Mini App not inside Telegram.");
+        return;
+    }
+
+    console.log("Sending data to bot:", action);
+
+    tg.sendData(
+        JSON.stringify({
+            type: "kiara_action",
+            action: action
+        })
+    );
+}
